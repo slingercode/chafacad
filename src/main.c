@@ -22,7 +22,7 @@ int main(void) {
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, CHAFACAD, NULL, NULL);
-    if (!window) {
+    if (window == NULL) {
         fprintf(stderr, "Error: Could not create a window\n");
         glfwTerminate();
 
@@ -33,6 +33,7 @@ int main(void) {
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
+
     /* Initialize GLEW */
     glewInit();
     
