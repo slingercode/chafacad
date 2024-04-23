@@ -18,7 +18,7 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window;
+    GLFWwindow *window;
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, CHAFACAD, NULL, NULL);
@@ -37,8 +37,8 @@ int main(void) {
     /* Initialize GLEW */
     glewInit();
     
-    const GLubyte* renderer = glGetString(GL_RENDERER);
-    const GLubyte* version = glGetString(GL_VERSION);
+    const GLubyte *renderer = glGetString(GL_RENDERER);
+    const GLubyte *version = glGetString(GL_VERSION);
     printf("Renderer: %s\n", renderer);
     printf("OpenGL version supported: %s\n", version);
 
