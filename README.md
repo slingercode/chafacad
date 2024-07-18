@@ -3,10 +3,24 @@
 ## Requirements
 
 - clang
-- [GLEW](https://glew.sourceforge.net)
-- [GLFW](https://www.glfw.org)
+- [Raylib](https://www.raylib.com/)
+
+## Local Installation
+
+1. Clone Raylib
+2. Build the application in order to obtain the `libraylib.a` file
+3. Copy the `libraylib.a` from the raylib source code into the chafacad `lib` folder
+4. Copy the `raylib.h` from the raylib source code into the chafacad `include` folder
 
 ## References
+
+- [Raylib - Working on MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+- [themutti - Raylib installation](https://github.com/themutti/raylib-installation)
+
+### Old References
+
+This links are from my previous version that was using GLEW and GLFW but I'm
+keeping them in order to create an archive
 
 - [Some interesting post in reddit](https://www.reddit.com/r/opengl/comments/199433i/how_can_i_setup_opengl_for_development_on_an_m2/?share_id=PtuJHyXrNGdZehrqYYZTM&utm_content=1&utm_medium=ios_app&utm_name=ioscss&utm_source=share&utm_term=1)
 - [OpenGL tutorial](https://www.opengl-tutorial.org/)
