@@ -9,11 +9,12 @@
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 600
 #define FONT_SIZE_MD 20
+#define FONT_SIZE_SPACING 0.12
 #define BACKGROUND_COLOR_PRIMARY CLITERAL(Color){ 17, 17, 17, 255 }
 #define BACKGROUND_COLOR_SECONDARY CLITERAL(Color){ 25, 25, 25, 255 }
 #define TEXT_COLOR_PRIMARY CLITERAL(Color){ 238, 238, 238, 255 }
 #define TEXT_COLOR_SECONDARY CLITERAL(Color){ 246, 238, 180, 255 }
-#define TEXT_COLOR_TERTIARY CLITERAL(Color){ 34, 34, 34, 255 }
+#define TEXT_COLOR_TERTIARY CLITERAL(Color){ 96, 96, 96, 255 }
 #define BORDER_COLOR_PRIMARY CLITERAL(Color){ 58, 58, 58, 255 }
 #define BORDER_COLOR_SECONDARY CLITERAL(Color){ 131, 106, 33, 255 }
 
@@ -24,6 +25,7 @@
 #define ACTION_BAR_SEGMENTS 32
 #define ACTION_BAR_ROUNDNESS 0.5
 #define ACTION_BAR_THICKNESS 1.5
+#define ACTION_BAR_PLACEHOLDER "Type a command"
 #define ACTION_BAR_PADDING_PERCENTAGE 0.10
 
 typedef struct ActionBar {
@@ -47,7 +49,7 @@ ActionBar* init_action_bar(int x, int y, int w, int h) {
     actionBar->y = y;
     actionBar->width = w;
     actionBar->height = h;
-    actionBar->isActive = false;
+    actionBar->isActive = true;
     actionBar->content[0] = '\0';
 
     return actionBar;
@@ -58,9 +60,8 @@ void handle_action_bar_visibility(ActionBar* actionBar) {
         actionBar->isActive = true;
     }
 
-    if (actionBar->isActive && IsKeyPressed(KEY_ESCAPE)) {
+    if (actionBar->isActive && IsKeyPressed(KEY_ESCAPE) && strlen(actionBar->content) == 0) {
         actionBar->isActive = false;
-        actionBar->content[0] = '\0';
     }
 }
 
@@ -87,29 +88,28 @@ void handle_action_bar_input(ActionBar* actionBar) {
             actionBar->content[contentLength - 1] = '\0';
         }
     }
+
+    if (IsKeyPressed(KEY_ESCAPE)) {
+        actionBar->content[0] = '\0';
+    }
 }
 
-void draw_action_bar(ActionBar* actionBar) {
+void draw_action_bar(ActionBar* actionBar, Font font) {
     if (!actionBar->isActive) return;
 
-    Rectangle rectangle = (Rectangle){actionBar->x, actionBar->y, actionBar->width, actionBar->height};
+    const Rectangle rectangle = (Rectangle){actionBar->x, actionBar->y, actionBar->width, actionBar->height};
 
-    DrawRectangleRoundedLinesEx(
-        rectangle,
-        ACTION_BAR_ROUNDNESS,
-        ACTION_BAR_SEGMENTS,
-        ACTION_BAR_THICKNESS,
-        BORDER_COLOR_SECONDARY
-    );
+    DrawRectangleRoundedLinesEx(rectangle, ACTION_BAR_ROUNDNESS, ACTION_BAR_SEGMENTS, ACTION_BAR_THICKNESS, BORDER_COLOR_SECONDARY);
 
     const int x = ((WINDOW_WIDTH - (int)(actionBar->width - (actionBar->width * ACTION_BAR_PADDING_PERCENTAGE))) / 2);
     const int y = (actionBar->y + (int)(actionBar->height / 4));
+    const Vector2 coordinates = (Vector2){x, y};
 
     /** TODO: Improve logic of the text coordinates, the text always should be in the center of the `height` */
     if (strlen(actionBar->content) == 0) {
-        DrawText("Type a command", x, y, FONT_SIZE_MD, TEXT_COLOR_TERTIARY);
+        DrawTextEx(font, ACTION_BAR_PLACEHOLDER, coordinates, FONT_SIZE_MD, FONT_SIZE_SPACING, TEXT_COLOR_TERTIARY);
     } else {
-        DrawText(actionBar->content, x, y, FONT_SIZE_MD, TEXT_COLOR_PRIMARY);
+        DrawTextEx(font, actionBar->content, coordinates, FONT_SIZE_MD, FONT_SIZE_SPACING, TEXT_COLOR_PRIMARY);
     }
 }
 
@@ -122,6 +122,14 @@ int main(void) {
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
 
+    Font defaultFont = LoadFont("./assets/fonts/BerkeleyMono.otf");
+
+    if (IsFontReady(defaultFont)) {
+        SetTextureFilter(defaultFont.texture, TEXTURE_FILTER_BILINEAR);
+    } else {
+        defaultFont = GetFontDefault();
+    }
+
     while (!WindowShouldClose()) {
         BeginDrawing();
 
@@ -130,12 +138,13 @@ int main(void) {
         {
             handle_action_bar_visibility(actionBar);
             handle_action_bar_input(actionBar);
-            draw_action_bar(actionBar);
+            draw_action_bar(actionBar, defaultFont);
         }
 
         EndDrawing();
     }
 
+    UnloadFont(defaultFont);
     free(actionBar);
     CloseWindow();
 

@@ -12,6 +12,8 @@
 3. Copy the `libraylib.a` from the raylib source code into the chafacad `lib` folder
 4. Copy the `raylib.h` from the raylib source code into the chafacad `include` folder
 
+- I use the font [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono) (🐐) so the configuration expects this font
+
 ## References
 
 - [Raylib - Working on MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
