@@ -22,6 +22,7 @@
 #define ACTION_BAR_HEIGHT 40
 #define ACTION_BAR_X (int)((WINDOW_WIDTH - ACTION_BAR_WIDTH) / 2)
 #define ACTION_BAR_Y 100
+#define ACTION_BAR_MAX_CONTENT 256
 #define ACTION_BAR_SEGMENTS 32
 #define ACTION_BAR_ROUNDNESS 0.5
 #define ACTION_BAR_THICKNESS 1.5
@@ -34,7 +35,7 @@ typedef struct ActionBar {
     int width;
     int height;
     bool isActive;
-    char content[256];
+    char content[ACTION_BAR_MAX_CONTENT];
 } ActionBar;
 
 ActionBar* init_action_bar(int x, int y, int w, int h) {
@@ -49,7 +50,7 @@ ActionBar* init_action_bar(int x, int y, int w, int h) {
     actionBar->y = y;
     actionBar->width = w;
     actionBar->height = h;
-    actionBar->isActive = true;
+    actionBar->isActive = false;
     actionBar->content[0] = '\0';
 
     return actionBar;
@@ -73,7 +74,8 @@ void handle_action_bar_input(ActionBar* actionBar) {
     while (keyPressed > 0) {
         int contentLength = strlen(actionBar->content);
 
-         if (keyPressed >= 32 && keyPressed <= 125) {
+        // The validation of the `ACTION_BAR_MAX_CONTENT` is subtracting 1 in order to add the final char as `NULL`
+        if ((keyPressed >= 32 && keyPressed <= 125) && (contentLength <= (ACTION_BAR_MAX_CONTENT - 1))) {
             actionBar->content[contentLength] = (char)keyPressed;
             actionBar->content[contentLength + 1] = '\0';
         }
