@@ -4,7 +4,7 @@ set -xe
 
 mkdir -p bin
 
-SRC="src/main.c"
+SRC="src/*.c"
 BIN="-o bin/chafacad"
 FRAMEWORKS="-framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL"
 INCLUDES="-I include/"
