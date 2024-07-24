@@ -6,9 +6,12 @@
 #include "raylib.h"
 #include "chafacad.h"
 #include "action-bar.h"
+#include "status-bar.h"
 
 int main(void) {
     SetTraceLogLevel(LOG_ALL);
+
+    StatusBar* statusBar = init_status_bar(STATUS_BAR_X, STATUS_BAR_Y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT);
     ActionBar* actionBar = init_action_bar(ACTION_BAR_X, ACTION_BAR_Y, ACTION_BAR_WIDTH, ACTION_BAR_HEIGHT);
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CHAFACAD);
@@ -30,6 +33,10 @@ int main(void) {
         ClearBackground(BACKGROUND_COLOR_PRIMARY);
 
         {
+            draw_status_bar(statusBar, defaultFont);
+        }
+
+        {
             handle_action_bar_visibility(actionBar);
             handle_action_bar_input(actionBar);
             draw_action_bar(actionBar, defaultFont);
@@ -39,6 +46,7 @@ int main(void) {
     }
 
     UnloadFont(defaultFont);
+    free(statusBar);
     free(actionBar);
     CloseWindow();
 

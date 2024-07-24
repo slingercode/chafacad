@@ -1,3 +1,4 @@
+#include "raylib.h"
 #include "chafacad.h"
 
 #define ACTION_BAR_WIDTH 800

@@ -76,6 +76,6 @@ void draw_action_bar(ActionBar* actionBar, Font font) {
     const int textYAxis = (int)(actionBar->y + (int)(actionBar->height - textSize.y) / 2);
     const Vector2 textAxis = {textXAxis, textYAxis};
     
-    DrawTextEx(font, text, textAxis, FONT_SIZE_MD, FONT_SIZE_SPACING, textColor);
     DrawRectangleRoundedLinesEx(rectangle, ACTION_BAR_ROUNDNESS, ACTION_BAR_SEGMENTS, ACTION_BAR_THICKNESS, BORDER_COLOR_SECONDARY);
+    DrawTextEx(font, text, textAxis, FONT_SIZE_MD, FONT_SIZE_SPACING, textColor);
 }
