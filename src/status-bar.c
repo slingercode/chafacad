@@ -28,7 +28,10 @@ void draw_status_bar(StatusBar* statusBar, Font font) {
     const int modeTextYAxis = (int)(statusBar->y + (int)(statusBar->height - modeTextSize.y) / 2);
     const Vector2 modeTextAxis = {modeTextXAxis, modeTextYAxis};
 
-    const char* mouseText = "(10000,10000)";
+    const Vector2 mousePosition = GetMousePosition();
+    char mouseText[STATUS_BAR_MOUSE_COORDINATES_STR_SIZE];
+    snprintf(mouseText, sizeof(mouseText), "(%.0f, %.0f)", mousePosition.x, mousePosition.y);
+
     const Vector2 mouseAxisTextSize = MeasureTextEx(font, mouseText, FONT_SIZE_BASE, FONT_SIZE_SPACING);
     const int mouseTextXAxis = (int)((WINDOW_WIDTH - mouseAxisTextSize.x) - STATUS_BAR_PADDING);
     const int mouseTextYAxis = (int)(statusBar->y + (int)(statusBar->height - mouseAxisTextSize.y) / 2);
