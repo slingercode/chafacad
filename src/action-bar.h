@@ -1,6 +1,3 @@
-#include "raylib.h"
-#include "chafacad.h"
-
 #define ACTION_BAR_WIDTH 800
 #define ACTION_BAR_HEIGHT 40
 #define ACTION_BAR_X (int)((WINDOW_WIDTH - ACTION_BAR_WIDTH) / 2)
@@ -23,7 +20,7 @@ typedef struct ActionBar {
 
 ActionBar* init_action_bar(int x, int y, int w, int h);
 
-void handle_action_bar_visibility(ActionBar* actionBar);
+void handle_action_bar_visibility(ActionBar* actionBar, Chafacad* chafacad);
 
 void handle_action_bar_input(ActionBar* actionBar);
 

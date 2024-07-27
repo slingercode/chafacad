@@ -1,6 +1,3 @@
-#include "raylib.h"
-#include "chafacad.h"
-
 #define STATUS_BAR_WIDTH WINDOW_WIDTH
 #define STATUS_BAR_HEIGHT 40
 #define STATUS_BAR_X 0
@@ -18,4 +15,4 @@ typedef struct StatusBar {
 
 StatusBar* init_status_bar(int x, int y, int w, int h);
 
-void draw_status_bar(StatusBar* statusBar, Font font);
+void draw_status_bar(StatusBar* statusBar, Chafacad* chafacad, Font font);

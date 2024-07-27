@@ -25,7 +25,9 @@ ActionBar* init_action_bar(int x, int y, int w, int h) {
     return actionBar;
 }
 
-void handle_action_bar_visibility(ActionBar* actionBar) {
+void handle_action_bar_visibility(ActionBar* actionBar, Chafacad* chafacad) {
+    if (chafacad->mode == 1) return;
+
     if (!actionBar->isActive && ((IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) && IsKeyDown(KEY_ENTER))) {
         actionBar->isActive = true;
     }
