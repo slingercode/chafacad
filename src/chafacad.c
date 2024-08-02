@@ -13,9 +13,12 @@ Chafacad* init_chafacad() {
         exit(EXIT_FAILURE);
     }
 
-  chafacad->mode = 1;
+    const Font berkeleyFont = LoadFont("./assets/fonts/BerkeleyMono.otf");
 
-  return chafacad;
+    chafacad->mode = 1;
+    chafacad->defaultFont = IsFontReady(berkeleyFont) ? berkeleyFont : GetFontDefault();
+
+    return chafacad;
 }
 
 /**

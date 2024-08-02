@@ -15,4 +15,4 @@ typedef struct StatusBar {
 
 StatusBar* init_status_bar(int x, int y, int w, int h);
 
-void draw_status_bar(StatusBar* statusBar, Chafacad* chafacad, Font font);
+void draw_status_bar(StatusBar* statusBar, Chafacad* chafacad);

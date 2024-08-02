@@ -24,4 +24,4 @@ void handle_action_bar_visibility(ActionBar* actionBar, Chafacad* chafacad);
 
 void handle_action_bar_input(ActionBar* actionBar);
 
-void draw_action_bar(ActionBar* actionBar, Font font);
+void draw_action_bar(ActionBar* actionBar, Chafacad* chafacad);

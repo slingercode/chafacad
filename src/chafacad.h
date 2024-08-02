@@ -19,13 +19,14 @@
 #define MODE_NORMAL_TEXT "Normal"
 #define MODE_DRAW_TEXT "Draw"
 
-typedef enum  {
+typedef enum {
     MODE_NORMAL = 0,
     MODE_DRAW = 1,
 } Mode;
 
 typedef struct Chafacad {
   Mode mode;
+  Font defaultFont;
 } Chafacad;
 
 Chafacad* init_chafacad();

@@ -66,8 +66,10 @@ void handle_action_bar_input(ActionBar* actionBar) {
     }
 }
 
-void draw_action_bar(ActionBar* actionBar, Font font) {
+void draw_action_bar(ActionBar* actionBar, Chafacad* chafacad) {
     if (!actionBar->isActive) return;
+
+    const Font font = chafacad->defaultFont;
 
     const Rectangle rectangle = {actionBar->x, actionBar->y, actionBar->width, actionBar->height};
     const bool isTextEmpty = strlen(actionBar->content) == 0;

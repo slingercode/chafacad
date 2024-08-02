@@ -21,7 +21,9 @@ StatusBar* init_status_bar(int x, int y, int w, int h) {
     return statusBar;
 }
 
-void draw_status_bar(StatusBar* statusBar, Chafacad* chafacad, Font font) {
+void draw_status_bar(StatusBar* statusBar, Chafacad* chafacad) {
+    const Font font = chafacad->defaultFont;
+
     const char* modeText = chafacad->mode == MODE_NORMAL ? MODE_NORMAL_TEXT : MODE_DRAW_TEXT;
     const Vector2 modeTextSize = MeasureTextEx(font, modeText, FONT_SIZE_BASE, FONT_SIZE_SPACING);
     const int modeTextXAxis = STATUS_BAR_PADDING;
