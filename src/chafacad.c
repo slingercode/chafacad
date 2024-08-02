@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "raylib.h"
+#include "raymath.h"
 #include "chafacad.h"
 
 Chafacad* init_chafacad() {
@@ -27,23 +28,28 @@ void handle_draw_commands(Chafacad* chafacad) {
     }
 }
 
-void draw_line(Chafacad* chafacad, Vector2* points, int* index) {
+void draw_line(Chafacad* chafacad, Vector2* point1, Vector2* point2) {
+    if ((point1->x != -1 && point1->y != -1) && (point2->x != -1 && point2->y != -1)) {
+        DrawLineEx(*point1, *point2, LINE_GUIDE_THICKNESS, LINE_COLOR_PRIMARY);
+    }
+
     if (chafacad->mode != MODE_DRAW) return;
 
     const Vector2 mousePosition = GetMousePosition();
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        points[*index] = mousePosition;
-        (*index)++;
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && (point1->x == -1 || point1->y == -1)) {
+        *point1 = mousePosition;
     }
 
-    for (int i = 0; i < *index; i++) {
-        if (points[i].x > 0 && points[i].y > 0) {
-            if (points[i + 1].x > 0 && points[i + 1].y > 0) {
-                DrawLineEx(points[i], points[i + 1], LINE_COMPLETED_THICKNESS, LINE_COLOR_PRIMARY);
-            } else {
-                DrawLineEx(points[i], mousePosition, LINE_GUIDE_THICKNESS, LINE_COLOR_SECONDARY);
-            }
-        }
+    if (point1->x != -1 && point1->y != -1) {
+        Vector2 lineReference;
+
+        const float distance = Vector2Distance(*point1, mousePosition);
+
+        lineReference.x = (point1->x + distance);
+        lineReference.y = point1->y;
+
+        DrawLineEx(*point1, mousePosition, LINE_GUIDE_THICKNESS, LINE_COLOR_SECONDARY);
+        DrawLineEx(*point1, lineReference, 0.5, LINE_COLOR_TERTIARY);
     }
 }

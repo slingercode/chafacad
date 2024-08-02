@@ -10,7 +10,7 @@
 1. Clone Raylib
 2. Build the application in order to obtain the `libraylib.a` file
 3. Copy the `libraylib.a` from the raylib source code into the chafacad `lib` folder
-4. Copy the `raylib.h` from the raylib source code into the chafacad `include` folder
+4. Copy the required raylib headers from the raylib source code into the chafacad `include` folder
 
 - I use the font [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono) (🐐) so the configuration expects this font
 

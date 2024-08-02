@@ -17,12 +17,14 @@ int main(void) {
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, CHAFACAD);
 
-    int index = 0;
-    Vector2 points[LINES_SIZES];
+    Vector2* point1 = malloc(sizeof(Vector2));
+    Vector2* point2 = malloc(sizeof(Vector2));
 
-    for (int i = 0; i < LINES_SIZES; i++) {
-        points[i] = (Vector2){-1, -1};
-    }
+    point1->x = -1;
+    point1->y = -1;
+
+    point2->x = -1;
+    point2->y = -1;
 
     Font defaultFont = LoadFont("./assets/fonts/BerkeleyMono.otf");
 
@@ -52,11 +54,14 @@ int main(void) {
 
         {
             handle_draw_commands(chafacad);
-            draw_line(chafacad, points, &index);
+            draw_line(chafacad, point1, point2);
         }
 
         EndDrawing();
     }
+
+    free(point1);
+    free(point2);
 
     free(chafacad);
     free(statusBar);

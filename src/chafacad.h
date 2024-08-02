@@ -18,7 +18,6 @@
 #define BORDER_COLOR_SECONDARY CLITERAL(Color){ 131, 106, 33, 255 }
 #define MODE_NORMAL_TEXT "Normal"
 #define MODE_DRAW_TEXT "Draw"
-#define LINES_SIZES 10
 
 typedef enum  {
     MODE_NORMAL = 0,
@@ -33,4 +32,4 @@ Chafacad* init_chafacad();
 
 void handle_draw_commands(Chafacad* chafacad);
 
-void draw_line(Chafacad* chafacad, Vector2* points, int* index);
+void draw_line(Chafacad* chafacad, Vector2* point1, Vector2* point2);
